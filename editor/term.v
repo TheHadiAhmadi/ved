@@ -17,9 +17,16 @@ pub fn disable_raw_mode() {
 }
 
 pub fn getch() u8 {
-	mut buf := [1]u8{}
-	C.read(0, &buf[0], 1) // Read 1 byte from stdin
-	return buf[0] // Convert byte to int
+	mut buf := [3]u8{}
+	C.read(0, &buf[0], 3)
+    // Handle Backspace and delete keys 
+    if buf[0] == 127 {
+        return 8
+    }
+    if buf[0] == 27 && buf[1] == 91 && buf[2] == 51 {
+        return 127
+    }
+	return buf[0] 
 }
 
 
@@ -33,9 +40,9 @@ fn set_cursor_default() {
 
 
 fn prepare_terminal() {
+	print("\x1b[?1049h")
 	unbuffer_stdout()
     enable_raw_mode()
-	print("\x1b[?1049h")
 	term.clear()
 }
 

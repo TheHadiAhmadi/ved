@@ -39,7 +39,7 @@ pub fn initialize() {
     mut e := Editor{}
     e.quit = false
     e.mode = 'normal'
-    e.screen = Screen{0, 0, width, height, 0}
+    e.screen = Screen{0, 0, width, height - 2, 0}
 
     e.render()
     e.loop()
