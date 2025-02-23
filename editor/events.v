@@ -5,20 +5,20 @@ fn (mut e Editor) validate() {
         e.buffer << ''
 
     }
-    if e.screen.cy < 0 {
-        e.screen.cy = 0
+    if e.active_pane.cy < 0 {
+        e.active_pane.cy = 0
     }
 
-    if e.screen.cx < 0 {
-        e.screen.cx = 0
+    if e.active_pane.cx < 0 {
+        e.active_pane.cx = 0
     }
 
-    if e.screen.cy >= e.buffer.len {
-        e.screen.cy = e.buffer.len
+    if e.active_pane.cy >= e.buffer.len {
+        e.active_pane.cy = e.buffer.len
     }
     // validate
-    if e.screen.cx > e.buffer[e.screen.cy].len {
-        e.screen.cx = e.buffer[e.screen.cy].len
+    if e.active_pane.cx > e.buffer[e.active_pane.cy].len {
+         e.active_pane.cx = e.buffer[e.active_pane.cy].len
     }
 
 }

@@ -22,13 +22,17 @@ fn (mut e Editor) load_file(filename string) {
         }
         return result
     })
+    e.main.lines = e.buffer
 
     e.filename = filename
+    e.normalize_scroll_top()
 }
 
 fn (mut e Editor) save_file() {
+    print("FILENAME: " + e.filename.len.str())
     if e.filename.len == 0 {
         e.message = ":w <filename>"
+        return
     }
 
     mut file := os.create(e.filename) or { panic('Failed to create file') }

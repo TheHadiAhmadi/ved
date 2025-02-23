@@ -37,8 +37,6 @@ fn (mut e Editor) handle_command(raw u8, key string) {
             // run command
         }
         8 {
-           panic("BACKSPACED")
-           e.status_left = "Edita asdf"
             if e.command == ':' {
                 e.mode = 'normal'
                 set_cursor_default()

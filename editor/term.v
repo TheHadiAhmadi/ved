@@ -1,5 +1,3 @@
-module editor
-
 import term
 
 pub fn enable_raw_mode() {
