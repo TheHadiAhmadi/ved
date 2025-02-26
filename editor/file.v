@@ -6,12 +6,12 @@ fn (mut e Editor) load_file(filename string) {
     if !os.exists(filename) {
         println('No file found.')
         e.filename = filename
-        e.buffer = []
+        e.main.buffer = []
         return
     }
 
     lines := os.read_lines(filename) or { panic('failed to read file') }
-    e.buffer = lines.map(fn (line string) string {
+    e.main.buffer = lines.map(fn (line string) string {
         mut result := ''
         for character in line {
             if rune(character) ==  `\t` {
@@ -22,14 +22,12 @@ fn (mut e Editor) load_file(filename string) {
         }
         return result
     })
-    e.main.lines = e.buffer
+    e.active_pane = &e.main
 
     e.filename = filename
-    e.normalize_scroll_top()
 }
 
 fn (mut e Editor) save_file() {
-    print("FILENAME: " + e.filename.len.str())
     if e.filename.len == 0 {
         e.message = ":w <filename>"
         return
@@ -39,6 +37,8 @@ fn (mut e Editor) save_file() {
     defer { file.close() }
 
     for line in e.buffer {
-        file.writeln(line) or { panic('Failed to write to file') }
+        // convert 4 spaces to tab
+        modified_line := line.replace('    ', '\t')
+        file.writeln(modified_line) or { panic('Failed to write to file') }
     }
 }

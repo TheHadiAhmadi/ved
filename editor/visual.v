@@ -1,6 +1,6 @@
 module editor
 
-fn (mut e Editor) handle_visual(raw u8, key string) {
+fn (mut e Editor) handle_visual(raw int, key string) {
     match raw {
         27 {
             e.mode = 'normal'

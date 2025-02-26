@@ -1,3 +1,5 @@
+module editor
+
 import term
 
 pub fn enable_raw_mode() {
@@ -14,12 +16,12 @@ pub fn disable_raw_mode() {
 	C.tcsetattr(0, C.TCSANOW, &terminal) // Apply changes }
 }
 
-pub fn getch() u8 {
+pub fn getch() int {
 	mut buf := [3]u8{}
 	C.read(0, &buf[0], 3)
     // Handle Backspace and delete keys 
     if buf[0] == 127 {
-        return 8
+        return -8
     }
     if buf[0] == 27 && buf[1] == 91 && buf[2] == 51 {
         return 127

@@ -1,26 +1,25 @@
 module editor
 
 fn (mut e Editor) validate() {
-    if e.buffer.len == 0 {
-        e.buffer << ''
-
-    }
-    if e.active_pane.cy < 0 {
-        e.active_pane.cy = 0
+    if e.main.buffer.len == 0 {
+        e.main.buffer << ''
     }
 
-    if e.active_pane.cx < 0 {
-        e.active_pane.cx = 0
+    if e.main.cy < 0 {
+        e.main.cy = 0
     }
 
-    if e.active_pane.cy >= e.buffer.len {
-        e.active_pane.cy = e.buffer.len
+    if e.main.cx < 0 {
+        e.main.cx = 0
+    }
+
+    if e.main.cy >= e.main.buffer.len {
+        e.main.cy = e.main.buffer.len
     }
     // validate
-    if e.active_pane.cx > e.buffer[e.active_pane.cy].len {
-         e.active_pane.cx = e.buffer[e.active_pane.cy].len
+    if e.main.cx > e.main.buffer[e.main.cy].len {
+         e.main.cx = e.main.buffer[e.main.cy].len
     }
-
 }
 
 pub fn (mut e Editor) loop() {
